@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="media">
+		  <div class="media-left">
+		    <a href="#">
+		      <img src="/assets/images/default-user-picture.svg" class="user-logo img-circle">
+		    </a>
+		  </div>
+		  <div class="media-body">
+		    <h2>{{ content.name }}</h2>
+		    <button class="btn btn-default btn-sm" type="submit">Change photo</button>
+		  </div>
+		</div>
+		<br>
+      <form>
+ 		     {{#if displayErrorMsg}}
+          <div class="alert alert-danger" role="alert">
+            {{ errorMsg }}
+          </div>
+        {{/if}}
+        <div class="form-group">
+        	<label>Full name</label>
+          	{{ input name="name" value=content.name classNames='form-control' placeholder="Your name" required="" }}
+        </div>
+        <div class="form-group">
+        	<label>Username</label>
+          	{{ input name="username" value=content.username classNames='form-control' placeholder="User name" required="" }}
+        </div>
+        <div class="form-group">
+        	<label>Phone</label>
+          	{{ input name="phone" value=content.phone classNames='form-control' placeholder="(123) - 555 5555" }}
+        </div>
+        <div class="form-group">
+        	<label>Addresses</label>
+        	<br>
+	        <ul class="list-group">
+		        {{#each address in content.addresses }}
+		        <li class="list-group-item">
+		        	<span {{ action "removeAddress" address }} class="pull-right" >{{ fa-icon "trash"}}</span>
+		        	{{ address.street }}, {{ address.city }}, {{ address.postcode }}, {{ address.country }}
+		        </li>
+		        {{/each}}
+	        </ul>
+          <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default btn-lg" {{ action "toggleAddAddress"}} >Add address</button>
+            </div>
+          </div>
+          {{#if addAddress}}
+            <br>
+      			<div class="form-group">
+      		 		<div class="form-group">
+      		        {{ input name="streetname" value=street classNames='form-control' placeholder="Main street" }}
+      		        </div>
+      		 		<div class="form-group">
+      		        {{ input name="city" value=city classNames='form-control' placeholder="City" }}
+      		        </div>
+      		 		<div class="form-group">
+      		        {{ input name="postcode" value=postcode classNames='form-control' placeholder="111 11" }}
+      		        </div>
+      				<div class="form-group">
+      		        {{ input name="country" value=country classNames='form-control' placeholder="Country" }}
+      		        </div>
+      			    <span class="input-group-btn">
+      			    	<button class="btn btn-default btn-lg" {{ action "createAddress" on="click" }}>Add address</button>
+      			    </span>
+      			</div>
+          {{/if}}
+        </div>
+        <button class="btn btn-success btn-lg" type="submit">Save changes</button>
+      </form>
+    </div>
+  </div>
+</div>
